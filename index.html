@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1280, initial-scale=1">
+    <title>Block Invaders</title>
+    <link rel="stylesheet" href="blockinvaders.css">
+</head>
+
+<body>
+    <h1>Block Invaders</h1>
+    <h2 id="controlsInstruction">Controls: Arrow keys to move, Space to shoot, Escape to pause</h2>
+    <p>Score: <span id="score"></span></p>
+    <p>Level: <span id="level"></span></p>
+
+    <button id="startBtn">Start Game</button>
+    <p id="levelMessage"></p>
+    <p id="countdownDisplay"></p>
+
+    <canvas id="gameCanvas" width="500" height="700"></canvas>
+
+    <script type="module">
+        // Import the functions you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBoI07sXF7Ivk7EzNrhRuVJn_vR_SrQU_8",
+            authDomain: "blockinvadersleaderboard.firebaseapp.com",
+            projectId: "blockinvadersleaderboard",
+            storageBucket: "blockinvadersleaderboard.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.firestore = { db, collection, addDoc, getDocs, query, orderBy, limit };
+    </script>
+
+    <script src="blockinvaders.js"></script>
+</body>
+
+</html>

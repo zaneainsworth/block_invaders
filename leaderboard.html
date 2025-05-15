@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Block Invaders - Leaderboard</title>
+    <link rel="stylesheet" href="blockinvaders.css">
+    <style>
+        #leaderboardContainer {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        #scoresList {
+            list-style: none;
+            padding: 0;
+            font-size: 20px;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Leaderboard</h1>
+    <div id="leaderboardContainer">
+        <ul id="scoresList"></ul>
+        <br>
+        <a href="index.html" style="color:red; font-size: 16px;">← Back to Game</a>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBoI07sXF7Ivk7EzNrhRuVJn_vR_SrQU_8",
+            authDomain: "blockinvadersleaderboard.firebaseapp.com",
+            projectId: "blockinvadersleaderboard",
+            storageBucket: "blockinvadersleaderboard.appspot.com",
+            messagingSenderId: "...",
+            appId: "..."
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function loadLeaderboard() {
+            const scoresList = document.getElementById("scoresList");
+            const q = query(collection(db, "leaderboard"), orderBy("score", "desc"), limit(10));
+            const querySnapshot = await getDocs(q);
+
+            querySnapshot.forEach((doc, index) => {
+                const data = doc.data();
+                const li = document.createElement("li");
+                li.innerHTML = `<strong>${data.name}</strong> - ${data.score}`;
+                scoresList.appendChild(li);
+            });
+        }
+
+        loadLeaderboard();
+    </script>
+</body>
+
+</html>
