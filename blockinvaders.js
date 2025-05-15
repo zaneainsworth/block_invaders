@@ -101,8 +101,12 @@ document.addEventListener('keyup', (e) => {
         if (gameOver) return;
         const touch = e.touches[0];
         const rect = canvas.getBoundingClientRect();
-        // Move player to touch X position
-        player.x = Math.min(Math.max(touch.clientX - rect.left - player.width / 2, 0), canvas.width - player.width);
+        const targetX = Math.min(Math.max(touch.clientX - rect.left - player.width / 2, 0), canvas.width - player.width);
+        if (Math.abs(player.x - targetX) > 3) {
+            player.x += (player.x < targetX ? 3 : -3);
+        } else {
+            player.x = targetX;
+        }
         e.preventDefault();
     });
 
