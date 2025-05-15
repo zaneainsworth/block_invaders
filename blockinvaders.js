@@ -98,8 +98,6 @@ if (isMobile()) {
     pauseBtn.addEventListener('click', pauseGame);
 
     document.body.appendChild(pauseBtn);
-    
-    
 
     // Left button
     const leftBtn = document.createElement('button');
