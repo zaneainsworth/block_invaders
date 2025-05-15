@@ -6,7 +6,7 @@ const levelMessage = document.getElementById('levelMessage');
 const countdownDisplay = document.getElementById('countdownDisplay');
 const button = document.getElementById('startBtn');
 
-const player = { x: 180, y: 650, width: 40, height: 10, color: 'white' };
+const player = { x: 180, y: 600, width: 40, height: 10, color: 'white' };
 const enemyWidth = 40, enemyHeight = 20;
 const bullets = [];
 const enemies = [];
