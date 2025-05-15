@@ -6,7 +6,7 @@ const levelMessage = document.getElementById('levelMessage');
 const countdownDisplay = document.getElementById('countdownDisplay');
 const button = document.getElementById('startBtn');
 
-const player = { x: 180, y: 600, width: 40, height: 10, color: 'white' };
+const player = { x: 180, y: 550, width: 40, height: 10, color: 'white' };
 const enemyWidth = 40, enemyHeight = 20;
 const bullets = [];
 const enemies = [];
@@ -21,6 +21,15 @@ let enemyDirection = 1, enemySpeed = 0.3, enemyShootInterval = 0.01;
 //Game Initialization
 function startGame() {
     let timer = 3;
+
+    alert("Welcome to Block Invaders!
+          \n\nInstructions:
+    \n- Use Arrow keys to move left/right.
+        \n- Press Space to shoot.
+        \n- Tap on the screen to shoot on mobile.
+        \n- Drag the player by swiping and holding on mobile.
+        \n- Press Escape to pause the game.
+        \n\nGood luck!");
 
     countdownDisplay.textContent = timer;
     levelMessage.textContent = `Level ${level + 1}`;
