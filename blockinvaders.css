@@ -91,6 +91,20 @@ p {
     user-select: none;
 }
 
+#pauseBtn{
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    font-size: 24px;
+    background: #222;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    cursor: pointer;
+}
+
 #mobileBtn {
     width: 60px;
     height: 60px;

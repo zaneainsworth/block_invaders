@@ -89,6 +89,15 @@ if (isMobile()) {
     const controller = document.createElement('div');
     controller.id = "mobileBtnDiv";
 
+    // Create pause button
+    const pauseBtn = document.createElement('button');
+    pauseBtn.id = 'pauseBtn';
+    pauseBtn.textContent = '⏸️';
+
+    pauseBtn.addEventListener('click', pauseGame);
+
+    document.body.appendChild(pauseBtn);
+
     // Left button
     const leftBtn = document.createElement('button');
     leftBtn.innerHTML = '&#8592;';
