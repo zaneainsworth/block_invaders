@@ -18,7 +18,18 @@
     <p id="levelMessage"></p>
     <p id="countdownDisplay"></p>
 
-    <canvas id="gameCanvas" width="500" height="700"></canvas>
+    <div style="width:100%;max-width:500px;margin:auto;">
+        <canvas id="gameCanvas" width="500" height="700" style="width:100%;height:auto;display:block;"></canvas>
+    </div>
+    <style>
+    @media (max-width: 600px) {
+        #gameCanvas {
+            width: 100vw !important;
+            height: auto !important;
+            max-width: 100% !important;
+        }
+    }
+    </style>
 
     <script type="module">
         // Import the functions you need
