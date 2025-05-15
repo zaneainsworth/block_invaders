@@ -80,41 +80,93 @@ document.addEventListener('keyup', (e) => {
     keys[e.key] = false;
 });
 
-// Touch controls for mobile
+// Mobile on-screen controller
+    function isMobile() {
+        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+    }
 
-    let touchStartX = null;
+    if (isMobile()) {
+        // Create controller container
+        const controller = document.createElement('div');
+        controller.style.position = 'fixed';
+        controller.style.bottom = '20px';
+        controller.style.left = '50%';
+        controller.style.transform = 'translateX(-50%)';
+        controller.style.display = 'flex';
+        controller.style.gap = '20px';
+        controller.style.zIndex = '1000';
+        controller.style.userSelect = 'none';
 
-    canvas.addEventListener('touchstart', (e) => {
-        if (gameOver) return;
-        const touch = e.touches[0];
-        touchStartX = touch.clientX;
+        // Button styles
+        const btnStyle = `
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #222;
+            color: #fff;
+            font-size: 2em;
+            border: none;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px #0006;
+            touch-action: manipulation;
+        `;
 
-        // Fire bullet on tap (single touch)
-        if (e.touches.length === 1) {
-            bullets.push({ x: player.x + player.width / 2 - 2,
-                y: player.y,
-                width: 4,
-                height: 10,
-                color: 'yellow' });
-        }
-    });
+        // Left button
+        const leftBtn = document.createElement('button');
+        leftBtn.innerHTML = '&#8592;';
+        leftBtn.style.cssText = btnStyle;
 
-    canvas.addEventListener('touchmove', (e) => {
-        if (gameOver) return;
-        const touch = e.touches[0];
-        const rect = canvas.getBoundingClientRect();
-        const targetX = Math.min(Math.max(touch.clientX - rect.left - player.width / 2, 0), canvas.width - player.width);
-        if (Math.abs(player.x - targetX) > 3) {
-            player.x += (player.x < targetX ? 3 : -3);
-        } else {
-            player.x = targetX;
-        }
-        e.preventDefault();
-    });
+        // Right button
+        const rightBtn = document.createElement('button');
+        rightBtn.innerHTML = '&#8594;';
+        rightBtn.style.cssText = btnStyle;
 
-    canvas.addEventListener('touchend', (e) => {
-        touchStartX = null;
-    });
+        // Shoot button
+        const shootBtn = document.createElement('button');
+        shootBtn.innerHTML = '&#11014;';
+        shootBtn.style.cssText = btnStyle + 'background: #eab308; color: #222;';
+
+        controller.appendChild(leftBtn);
+        controller.appendChild(shootBtn);
+        controller.appendChild(rightBtn);
+        document.body.appendChild(controller);
+
+        // Button events
+        let leftInterval, rightInterval;
+
+        leftBtn.addEventListener('touchstart', () => {
+            keys['ArrowLeft'] = true;
+            leftInterval = setInterval(() => keys['ArrowLeft'] = true, 16);
+        });
+        leftBtn.addEventListener('touchend', () => {
+            keys['ArrowLeft'] = false;
+            clearInterval(leftInterval);
+        });
+
+        rightBtn.addEventListener('touchstart', () => {
+            keys['ArrowRight'] = true;
+            rightInterval = setInterval(() => keys['ArrowRight'] = true, 16);
+        });
+        rightBtn.addEventListener('touchend', () => {
+            keys['ArrowRight'] = false;
+            clearInterval(rightInterval);
+        });
+
+        shootBtn.addEventListener('touchstart', () => {
+            if (!gameOver) {
+                bullets.push({
+                    x: player.x + player.width / 2 - 2,
+                    y: player.y,
+                    width: 4,
+                    height: 10,
+                    color: 'yellow'
+                });
+            }
+        });
+    }
 
 
 //Smooth Movement
