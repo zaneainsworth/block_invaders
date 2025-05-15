@@ -17,12 +17,11 @@ let enemyRows = 2, enemyCols = 5, score = 0, level = 0;
 let gameOver = false, paused = false;
 let enemyDirection = 1, enemySpeed = 0.3, enemyShootInterval = 0.01;
 
-
 //Game Initialization
 function startGame() {
     let timer = 3;
 
-    alert("Welcome to Block Invaders!\n\nInstructions:\n- Use Arrow keys to move left/right.\n- Press Space to shoot.\n- Tap on the screen to shoot on mobile.\n- Drag the player by swiping and holding on mobile.\n- Press Escape to pause the game.\n\nGood luck!");
+    alert("Welcome to Block Invaders!\n\nInstructions:\n- Use Arrow keys to move left/right.\n- Press Space to shoot.\n- Touch buttons for mobile.\n- Press Escape to pause the game.\n\nGood luck!");
 
     countdownDisplay.textContent = timer;
     levelMessage.textContent = `Level ${level + 1}`;
@@ -81,93 +80,68 @@ document.addEventListener('keyup', (e) => {
 });
 
 // Mobile on-screen controller
-    function isMobile() {
-        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
-    }
+function isMobile() {
+    return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile/i.test(navigator.userAgent);
+}
 
-    if (isMobile()) {
-        // Create controller container
-        const controller = document.createElement('div');
-        controller.style.position = 'fixed';
-        controller.style.bottom = '20px';
-        controller.style.left = '50%';
-        controller.style.transform = 'translateX(-50%)';
-        controller.style.display = 'flex';
-        controller.style.gap = '20px';
-        controller.style.zIndex = '1000';
-        controller.style.userSelect = 'none';
+if (isMobile()) {
+    // Create controller container
+    const controller = document.createElement('div');
+    controller.id = "mobileBtnDiv";
 
-        // Button styles
-        const btnStyle = `
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: #222;
-            color: #fff;
-            font-size: 2em;
-            border: none;
-            opacity: 0.8;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px #0006;
-            touch-action: manipulation;
-        `;
+    // Left button
+    const leftBtn = document.createElement('button');
+    leftBtn.innerHTML = '&#8592;';
+    leftBtn.id = 'mobileBtn';
 
-        // Left button
-        const leftBtn = document.createElement('button');
-        leftBtn.innerHTML = '&#8592;';
-        leftBtn.style.cssText = btnStyle;
+    // Right button
+    const rightBtn = document.createElement('button');
+    rightBtn.innerHTML = '&#8594;';
+    rightBtn.id = 'mobileBtn';
 
-        // Right button
-        const rightBtn = document.createElement('button');
-        rightBtn.innerHTML = '&#8594;';
-        rightBtn.style.cssText = btnStyle;
+    // Shoot button
+    const shootBtn = document.createElement('button');
+    shootBtn.innerHTML = '&#11014;';
+    shootBtn.id = 'mobileBtn';
 
-        // Shoot button
-        const shootBtn = document.createElement('button');
-        shootBtn.innerHTML = '&#11014;';
-        shootBtn.style.cssText = btnStyle + 'background: #eab308; color: #222;';
+    controller.appendChild(leftBtn);
+    controller.appendChild(shootBtn);
+    controller.appendChild(rightBtn);
+    document.body.appendChild(controller);
 
-        controller.appendChild(leftBtn);
-        controller.appendChild(shootBtn);
-        controller.appendChild(rightBtn);
-        document.body.appendChild(controller);
+    // Button events
+    let leftInterval, rightInterval;
 
-        // Button events
-        let leftInterval, rightInterval;
+    leftBtn.addEventListener('touchstart', () => {
+        keys['ArrowLeft'] = true;
+        leftInterval = setInterval(() => keys['ArrowLeft'] = true, 16);
+    });
+    leftBtn.addEventListener('touchend', () => {
+        keys['ArrowLeft'] = false;
+        clearInterval(leftInterval);
+    });
 
-        leftBtn.addEventListener('touchstart', () => {
-            keys['ArrowLeft'] = true;
-            leftInterval = setInterval(() => keys['ArrowLeft'] = true, 16);
-        });
-        leftBtn.addEventListener('touchend', () => {
-            keys['ArrowLeft'] = false;
-            clearInterval(leftInterval);
-        });
+    rightBtn.addEventListener('touchstart', () => {
+        keys['ArrowRight'] = true;
+        rightInterval = setInterval(() => keys['ArrowRight'] = true, 16);
+    });
+    rightBtn.addEventListener('touchend', () => {
+        keys['ArrowRight'] = false;
+        clearInterval(rightInterval);
+    });
 
-        rightBtn.addEventListener('touchstart', () => {
-            keys['ArrowRight'] = true;
-            rightInterval = setInterval(() => keys['ArrowRight'] = true, 16);
-        });
-        rightBtn.addEventListener('touchend', () => {
-            keys['ArrowRight'] = false;
-            clearInterval(rightInterval);
-        });
-
-        shootBtn.addEventListener('touchstart', () => {
-            if (!gameOver) {
-                bullets.push({
-                    x: player.x + player.width / 2 - 2,
-                    y: player.y,
-                    width: 4,
-                    height: 10,
-                    color: 'yellow'
-                });
-            }
-        });
-    }
-
+    shootBtn.addEventListener('touchstart', () => {
+        if (!gameOver) {
+            bullets.push({
+                x: player.x + player.width / 2 - 2,
+                y: player.y,
+                width: 4,
+                height: 10,
+                color: 'yellow'
+            });
+        }
+    });
+}
 
 //Smooth Movement
 function handlePlayerMovement() {
@@ -408,9 +382,7 @@ async function handleGameOver() {
         }
     }
 
-    if (confirm("Do you want to restart?")) {
-        window.location.reload();
-    }
+    window.location.href = "leaderboard.html";
 }
 
 //Game Loop

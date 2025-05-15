@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Block Invaders</title>
     <link rel="stylesheet" href="blockinvaders.css">
 </head>
@@ -12,22 +12,13 @@
     <h1>Block Invaders</h1>
     <p>Score: <span id="score"></span> Level: <span id="level"></span></p>
 
-    <button id="startBtn">Start Game</button>
+    <a class="aButton" id="startBtn">Start Game</a>
     <p id="levelMessage"></p>
     <p id="countdownDisplay"></p>
 
-    <div style="width:100%;max-width:500px;margin:auto;">
-        <canvas id="gameCanvas" width="500" height="700" style="width:100%;height:auto;display:block;"></canvas>
+    <div class="gameDiv">
+        <canvas id="gameCanvas" width="500" height="700"></canvas>
     </div>
-    <style>
-    @media (max-width: 600px) {
-        #gameCanvas {
-            width: 100vw !important;
-            height: auto !important;
-            max-width: 100% !important;
-        }
-    }
-    </style>
 
     <script type="module">
         // Import the functions you need
