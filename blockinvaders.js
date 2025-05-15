@@ -14,7 +14,7 @@ const enemyBullets = [];
 const keys = {};
 
 let enemyRows = 2, enemyCols = 5, score = 0, level = 0;
-let gameOver = false, paused = false;
+let gameOver = false, paused = false, gameStarted = false;
 let enemyDirection = 1, enemySpeed = 0.3, enemyShootInterval = 0.01;
 
 //Game Initialization
@@ -39,6 +39,7 @@ function startGame() {
             }, 2000);
 
             update();
+            gameStarted = true;
         }
     }, 1000);
 }
@@ -89,14 +90,17 @@ if (isMobile()) {
     const controller = document.createElement('div');
     controller.id = "mobileBtnDiv";
 
-    // Create pause button
-    const pauseBtn = document.createElement('button');
-    pauseBtn.id = 'pauseBtn';
-    pauseBtn.textContent = '⏸️';
+    // Create pause button only when the game has started
+    if(gameStarted){
+        const pauseBtn = document.createElement('button');
+        pauseBtn.id = 'pauseBtn';
+        pauseBtn.textContent = '⏸️';
 
-    pauseBtn.addEventListener('click', pauseGame);
+        pauseBtn.addEventListener('click', pauseGame);
 
-    document.body.appendChild(pauseBtn);
+        document.body.appendChild(pauseBtn);
+    }
+    
 
     // Left button
     const leftBtn = document.createElement('button');
