@@ -82,8 +82,6 @@ document.addEventListener('keyup', (e) => {
 
     let touchStartX = null;
 
-    document.getElementById('controlInstructions').innerText = "Touch Controls: Left side of the screen to go left, right side to go right, tap to shoot";
-
     canvas.addEventListener('touchstart', (e) => {
         if (gameOver) return;
         const touch = e.touches[0];
