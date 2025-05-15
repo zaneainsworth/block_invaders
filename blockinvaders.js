@@ -18,11 +18,6 @@ let gameOver = false, paused = false;
 let enemyDirection = 1, enemySpeed = 0.3, enemyShootInterval = 0.01;
 
 
-var siteWidth = 1280;
-var scale = screen.width /siteWidth;
-
-document.querySelector('meta[name="viewport"]').setAttribute('content', 'width='+siteWidth+', initial-scale='+scale+'');
-
 //Game Initialization
 function startGame() {
     let timer = 3;
