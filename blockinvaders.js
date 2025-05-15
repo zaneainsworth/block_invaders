@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function pauseGame() {
-    if (!gameOver && !paused) {
+    if (!gameOver && !paused && gameStarted) {
         paused = true;
         if (confirm("Game Paused. Press OK to resume. Cancel to quit.")) {
             resumeGame();
@@ -90,16 +90,15 @@ if (isMobile()) {
     const controller = document.createElement('div');
     controller.id = "mobileBtnDiv";
 
-    // Create pause button only when the game has started
-    if(gameStarted){
-        const pauseBtn = document.createElement('button');
-        pauseBtn.id = 'pauseBtn';
-        pauseBtn.textContent = '⏸️';
+    // Create pause button
+    const pauseBtn = document.createElement('button');
+    pauseBtn.id = 'pauseBtn';
+    pauseBtn.textContent = '⏸️';
 
-        pauseBtn.addEventListener('click', pauseGame);
+    pauseBtn.addEventListener('click', pauseGame);
 
-        document.body.appendChild(pauseBtn);
-    }
+    document.body.appendChild(pauseBtn);
+    
     
 
     // Left button
