@@ -292,6 +292,7 @@ function increaseLevel(){
     if (level > 7) {
         levelTransition();
         score += 500;
+        drawScore();
         enemyShootInterval += 0.015;
         enemySpeed += 0.05;
     }
