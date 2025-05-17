@@ -95,7 +95,7 @@ if (isMobile()) {
     pauseBtn.id = 'pauseBtn';
     pauseBtn.textContent = '⏸️';
 
-    pauseBtn.addEventListener('click', pauseGame);
+    pauseBtn.addEventListener('click', pauseGame());
 
     document.body.appendChild(pauseBtn);
 
