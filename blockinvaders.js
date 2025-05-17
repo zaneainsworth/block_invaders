@@ -97,7 +97,7 @@ if (isMobile()) {
 
     pauseBtn.addEventListener('touchstart', () => {
         pauseGame();
-    }
+    });
 
     document.body.appendChild(pauseBtn);
 
