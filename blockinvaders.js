@@ -289,14 +289,21 @@ function increaseLevel(){
             enemyCols = 8;
             break;
         default:
+            if (level > 7) {
+                levelTransition();
+               score += 500;
+                drawScore();
+                enemyShootInterval += 0.005;
+                enemySpeed += 0.025;
+            }
+            if (level > 15) {
+                levelTransition();
+               score += 1000;
+                drawScore();
+                enemyShootInterval += 0.015;
+                enemySpeed += 0.05;
+            }
             break;
-    }
-    if (level > 7) {
-        levelTransition();
-        score += 500;
-        drawScore();
-        enemyShootInterval += 0.015;
-        enemySpeed += 0.05;
     }
 }
 
